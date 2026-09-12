@@ -24,7 +24,7 @@ export const site = {
   phoneDisplay: '',
 
   /** ⚠️ Optional — leave blank to hide. */
-  github: '',
+  github: 'https://github.com/mhvdhbi',
   linkedin: '',
 
   url: 'https://taacoub.pages.dev',
