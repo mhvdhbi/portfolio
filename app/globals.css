@@ -1,0 +1,190 @@
+@import 'tailwindcss';
+
+/* ===========================================================================
+   PORTFOLIO — design system
+   ---------------------------------------------------------------------------
+   Deliberately near-monochrome. This site's job is to make the CLIENT work
+   look good, and a loud frame competes with the screenshots inside it. One
+   high-chroma accent carries every action; everything else is paper and ink.
+
+   It must also read as a different hand from the sites it displays — Chez
+   Robio is warm cream and orange, so this is cool paper and electric blue.
+   =========================================================================== */
+
+@theme {
+  --color-paper: #f7f6f3;
+  --color-paper-2: #efede8;
+  --color-paper-3: #e2dfd8;
+  --color-paper-4: #cfcbc1;
+
+  --color-ink: #121215;
+  --color-ink-2: #4a4a52;
+  /* #74747e measured 4.22:1 on paper and failed AA; this clears 4.8:1. */
+  --color-ink-3: #6b6b74;
+
+  --color-accent: #2c5cff;
+  --color-accent-deep: #1e40d6;
+  --color-accent-soft: #2c5cff14;
+
+  --font-display: var(--font-grotesk), 'Segoe UI', sans-serif;
+  --font-body: var(--font-inter), system-ui, sans-serif;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: var(--color-accent); color: #fff; }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+}
+
+@utility container-p {
+  width: 100%;
+  max-width: 78rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  @media (min-width: 768px) { padding-inline: 2.5rem; }
+  @media (min-width: 1280px) { padding-inline: 3.5rem; }
+}
+
+@utility display-xl {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6.5vw, 5.25rem);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  font-weight: 700;
+}
+
+@utility display-lg {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.6vw, 3.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+
+@utility display-md {
+  font-family: var(--font-display);
+  font-size: clamp(1.375rem, 2.4vw, 1.875rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+
+@utility eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+}
+
+@layer components {
+  .btn-accent {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.95rem 1.75rem;
+    background: var(--color-accent);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    border-radius: 999px;
+    min-height: 46px;
+    transition: background-color 0.22s var(--ease-out), transform 0.22s var(--ease-out),
+      box-shadow 0.22s var(--ease-out);
+  }
+  .btn-accent:hover {
+    background: var(--color-accent-deep);
+    transform: translateY(-2px);
+    box-shadow: 0 14px 34px -12px var(--color-accent);
+  }
+  .btn-accent:active { transform: translateY(0); }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.95rem 1.75rem;
+    border: 1.5px solid var(--color-paper-4);
+    color: var(--color-ink);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    border-radius: 999px;
+    min-height: 46px;
+    transition: border-color 0.22s var(--ease-out), transform 0.22s var(--ease-out);
+  }
+  .btn-ghost:hover {
+    border-color: var(--color-ink);
+    transform: translateY(-2px);
+  }
+
+  /* Browser chrome around screenshots. Without a frame a screenshot reads as
+     a flat picture; with one it reads as a working website. */
+  .browser-frame {
+    border-radius: 0.875rem;
+    overflow: hidden;
+    background: var(--color-paper-2);
+    border: 1px solid var(--color-paper-3);
+    box-shadow: 0 30px 70px -35px rgba(18, 18, 21, 0.45);
+  }
+
+  .browser-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 0.85rem;
+    background: var(--color-paper-2);
+    border-bottom: 1px solid var(--color-paper-3);
+  }
+
+  .browser-dot {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 999px;
+    background: var(--color-paper-4);
+  }
+}
+
+@keyframes p-rise {
+  from { opacity: 0; transform: translate3d(0, 16px, 0); }
+  to   { opacity: 1; transform: none; }
+}
+
+@layer components {
+  .rise {
+    animation: p-rise 0.7s var(--ease-out) both;
+    animation-delay: var(--delay, 0s);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .rise { animation: none; }
+  }
+}
