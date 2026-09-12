@@ -2,28 +2,36 @@ import { site, mailHref, waHref } from '@/lib/site'
 import { Reveal } from './Reveal'
 
 export function Contact() {
-  const wa = waHref('Bonjour, je souhaite un site pour mon commerce.')
+  const wa = waHref('Bonjour Youssef, je souhaite un site pour mon activité.')
 
   return (
-    <section id="contact" className="border-t border-paper-3 bg-ink py-20 text-paper sm:py-28">
-      <div className="container-p">
+    <section
+      id="contact"
+      className="relative isolate overflow-hidden border-t border-line py-24 sm:py-32"
+    >
+      <div
+        className="pointer-events-none absolute inset-0 -z-10"
+        style={{
+          background:
+            'radial-gradient(60% 70% at 50% 100%, rgba(34,211,238,0.14) 0%, transparent 70%)',
+        }}
+      />
+
+      <div className="container-y text-center">
         <Reveal>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-paper-4">
-            Contact
-          </p>
-          <h2 className="display-lg mt-4 max-w-[16ch] text-paper">
-            Parlons de votre commerce.
+          <p className="label">Contact</p>
+          <h2 className="display-lg mx-auto mt-5 max-w-[16ch]">
+            Votre site, <span className="gradient-text">on en parle&nbsp;?</span>
           </h2>
-          <p className="mt-6 max-w-[52ch] text-lg leading-relaxed text-paper-4">
-            Dites-moi ce que vous faites et où vous êtes. Je vous réponds avec
-            une idée concrète de ce que pourrait être votre site — sans
-            engagement.
+          <p className="mx-auto mt-6 max-w-[50ch] text-lg leading-relaxed text-text-2">
+            Dites-moi ce que vous faites et où vous êtes. Je reviens vers vous
+            avec une proposition concrète — sans engagement.
           </p>
         </Reveal>
 
-        <Reveal delay={0.1}>
-          <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <a href={mailHref()} className="btn-accent w-full sm:w-auto">
+        <Reveal delay={0.08}>
+          <div className="mx-auto mt-10 flex max-w-md flex-col gap-3 sm:max-w-none sm:flex-row sm:justify-center">
+            <a href={mailHref()} className="btn-primary w-full sm:w-auto">
               {site.email}
             </a>
             {wa && (
@@ -31,7 +39,7 @@ export function Contact() {
                 href={wa}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full border-[1.5px] border-paper-4/40 px-7 py-[0.95rem] text-[15px] font-semibold text-paper transition-colors hover:border-paper hover:bg-paper/10 sm:w-auto"
+                className="btn-outline w-full sm:w-auto"
               >
                 WhatsApp {site.phoneDisplay}
               </a>
@@ -39,13 +47,12 @@ export function Contact() {
           </div>
         </Reveal>
 
-        {/* Shown only until the WhatsApp number is filled in — in Morocco most
-            enquiries arrive there, so an empty button would cost real leads. */}
+        {/* Only while the number is unset — in Morocco most enquiries arrive on
+            WhatsApp, so leaving this blank costs real leads. */}
         {!wa && (
-          <p className="mt-6 text-[12px] text-paper-4/70">
-            Astuce : ajoutez votre numéro WhatsApp dans{' '}
-            <code className="rounded bg-paper/10 px-1.5 py-0.5">lib/site.ts</code>{' '}
-            pour afficher un bouton de contact direct.
+          <p className="mt-6 font-mono text-[11px] text-text-3">
+            Ajoutez votre numéro WhatsApp dans{' '}
+            <span className="rounded bg-surface-2 px-1.5 py-0.5">lib/site.ts</span>
           </p>
         )}
       </div>

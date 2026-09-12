@@ -19,7 +19,7 @@ for (const [label, w, h] of [['desktop', 1440, 900], ['mobile', 390, 844]]) {
   page.on('console', (m) => m.type() === 'error' && errors.push(`[${label}] ${m.text()}`))
 
   await page.goto(BASE, { waitUntil: 'networkidle', timeout: 60000 })
-  await page.waitForTimeout(2000)
+  await page.waitForTimeout(6000)
   await page.screenshot({ path: `${OUT}/${label}-hero.png` })
   console.log('  OK', `${label}-hero`)
 

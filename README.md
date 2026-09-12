@@ -1,27 +1,32 @@
-# Portfolio — web design for Casablanca businesses
+# Youssef Mhadhbi — portfolio
 
-A portfolio site used as a sales tool: it shows local business owners real
-websites built for businesses like theirs, with before/after comparisons and
-numbers that can actually be checked.
+Personal site and portfolio. Web developer in Casablanca: custom design and
+front-end build, bilingual French/Arabic, built to be found on Google.
 
-**Live:** [taacoub.pages.dev](https://taacoub.pages.dev)
+**Live:** [mhadhbi.pages.dev](https://mhadhbi.pages.dev)
+
+| Performance | Accessibility | Best Practices | SEO |
+|---|---|---|---|
+| 97 | 100 | 100 | 100 |
+
+Lighthouse, mobile with throttling, against the deployed site. No failing audits.
 
 ---
 
 ## The idea
 
 Small businesses rarely respond to a description of a website. They respond to
-seeing one. So the pitch is: build a real, deployed site for the business on
+seeing one. So the approach is: build a real, deployed site for the business on
 spec, then show it to the owner on their phone.
 
 This portfolio is where those builds live. Each entry leads with a before/after
-and hard figures rather than adjectives.
+and figures that can actually be checked, rather than adjectives.
 
 ## Adding a project
 
 One object in [`lib/projects.ts`](lib/projects.ts). Drop the screenshots into
-`public/shots/`, put the new object first in the array, rebuild. The grid,
-the case-study layout and the hero counter all read from that file.
+`public/shots/`, put the new object first in the array, rebuild. The grid, the
+case-study layout and the hero counter all read from that file.
 
 ```ts
 {
@@ -34,43 +39,49 @@ the case-study layout and the hero counter all read from that file.
 ```
 
 `status` is deliberately explicit. A site built on spec is a concept, and
-labelling it as such is better than being caught overstating — an owner who
-rings the business you claimed as a client will find out anyway.
-
-## Capturing screenshots
-
-```bash
-npm run build && npm run preview   # serve on :4100
-npm run shots                      # screenshots into .review/
-node scripts/optimise-shots.mjs    # PNG -> WebP (last run: 18.7 MB -> 0.66 MB)
-```
-
-Client-site captures are taken by `scripts/portfolio-shots.mjs` in the project
-repo being documented, since that is where Playwright is already installed.
+labelling it as such is better than being caught overstating — anyone who rings
+the business you claimed as a client finds out anyway.
 
 ## Stack
 
-Next.js 15 (`output: 'export'`) · React 19 · Tailwind CSS 4 · Motion ·
-sharp · Cloudflare Pages
+Next.js 15 (`output: 'export'`) · React 19 · TypeScript · Tailwind CSS 4 ·
+Motion · Canvas 2D · sharp · Cloudflare Pages
 
 ```bash
 npm install
 npm run dev      # localhost:3100
 npm run build    # static export to out/
+npm run preview  # serve the built output on :4100
+npm run shots    # screenshot the site into .review/
 npm run deploy   # build + publish
 ```
 
 ## Design notes
 
-Near-monochrome on purpose. This site's job is to make the *client* work look
-good, and a loud frame competes with the screenshots inside it — so one
-high-chroma accent carries every action and everything else is paper and ink.
-It also has to read as a different hand from the sites it displays.
+**Dark, so the work is the brightest thing on the page.** Screenshots of other
+people's sites read as lit objects against it; a light frame competes with them.
 
-Screenshots sit inside browser chrome: a bare screenshot reads as a picture of
-a design, the same image in a frame reads as a website that exists.
+**The violet-to-cyan gradient is the only expressive device** — used on the
+mark, the section numbers and the hero field, and nowhere else, so it stays
+meaningful rather than becoming decoration.
+
+**The hero runs a generative flow field** on Canvas 2D: particles follow a
+vector field built from layered sines, leaving fading trails. A portfolio that
+claims front-end capability should demonstrate it rather than list it. It is
+also disciplined about it — particle count drops on small screens, the loop
+stops entirely when the tab is hidden or the hero scrolls out of view, and
+`prefers-reduced-motion` paints a single static frame and never animates.
+
+**The hero itself is a server component.** Everything above the fold animates
+with CSS, so the LCP element paints before hydration instead of waiting on the
+bundle. Only the decorative canvas is client-side, and the hero reads correctly
+without it.
+
+**The mark is `<M>`** — code brackets around an M for Mhadhbi. Drawn inline so
+it inherits colour and never flashes, with per-instance gradient ids, since two
+SVGs sharing an id makes the second render black.
 
 ## Configuration
 
-Identity and contact details live in [`lib/site.ts`](lib/site.ts) — name,
-email, WhatsApp, social links. Change them there and the whole site follows.
+Identity, contact details and the skills list live in
+[`lib/site.ts`](lib/site.ts). Change them there and the whole site follows.

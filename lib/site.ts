@@ -1,39 +1,64 @@
 /**
- * Brand and contact configuration.
+ * Identity and contact.
  *
- * Everything identity-related lives here so it can be changed in one place.
- * If you later trade under a studio name rather than your own, change `name`
- * and `initials` and the whole site follows.
+ * Everything personal lives here so it changes in one place. If a studio name
+ * comes later, set `studio` and the wordmark switches to it while the logo
+ * mark stays the same.
  */
 
 export const site = {
-  name: 'Youssef Taacoub',
-  initials: 'YT',
-  role: 'Conception de sites web',
+  name: 'Youssef Mhadhbi',
+  /** Optional trading name. Leave empty to use the personal name. */
+  studio: '',
+  role: 'Développeur web',
+  roleEn: 'Web Developer',
   city: 'Casablanca',
 
-  /** Shown in the hero. Keep it short — it is the first thing read. */
-  tagline: 'Je crée des sites web pour les commerces de Casablanca.',
+  /** The one-line promise. First thing read, so it stays short. */
+  tagline: 'Je conçois et développe des sites web sur mesure.',
 
-  email: 'ytaacoub@gmail.com',
+  email: 'mhvdhbi@gmail.com',
 
-  /** ⚠️ Put your real number here — in Morocco most enquiries arrive by
-   *  WhatsApp, and an empty button costs you leads. Digits only, with the
-   *  country code. Leave blank to hide the WhatsApp buttons entirely. */
+  /** Digits only with country code. Leave blank to hide the WhatsApp buttons —
+   *  most enquiries in Morocco arrive there, so this is worth filling in. */
   whatsapp: '',
   phoneDisplay: '',
 
-  /** ⚠️ Optional — leave blank to hide. */
   github: 'https://github.com/mhvdhbi',
   linkedin: '',
 
-  url: 'https://taacoub.pages.dev',
+  url: 'https://mhadhbi.pages.dev',
+
+  /** Shown in the hero and the about section. */
+  available: true,
 } as const
+
+export const displayName = site.studio || site.name
 
 export const waHref = (message?: string) =>
   site.whatsapp
     ? `https://wa.me/${site.whatsapp}${message ? `?text=${encodeURIComponent(message)}` : ''}`
     : null
 
-export const mailHref = (subject = 'Demande de site web') =>
+export const mailHref = (subject = 'Projet de site web') =>
   `mailto:${site.email}?subject=${encodeURIComponent(subject)}`
+
+/** Capabilities, grouped. Kept honest — everything here is in the shipped work. */
+export const skills = [
+  {
+    group: 'Développement',
+    items: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Node.js', 'Export statique'],
+  },
+  {
+    group: 'Design',
+    items: ['Direction artistique', 'Design système', 'Typographie', 'Animation', 'Responsive', 'Accessibilité'],
+  },
+  {
+    group: 'Référencement',
+    items: ['Données structurées', 'Sitemap & hreflang', 'Core Web Vitals', 'SEO local', 'Bilingue FR/AR'],
+  },
+  {
+    group: 'Mise en ligne',
+    items: ['Cloudflare Pages', 'Noms de domaine', 'DNS & HTTPS', 'Git', 'Pipeline d’images'],
+  },
+] as const

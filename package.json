@@ -1,5 +1,5 @@
 {
-  "name": "portfolio",
+  "name": "mhadhbi-portfolio",
   "version": "1.0.0",
   "private": true,
   "description": "Portfolio — sites web pour commerces à Casablanca",
@@ -7,7 +7,7 @@
     "build": "next build",
     "dev": "next dev -p 3100",
     "preview": "npx serve out -p 4100",
-    "deploy": "next build && wrangler pages deploy out --project-name=taacoub --branch=main --commit-dirty=true",
+    "deploy": "next build && wrangler pages deploy out --project-name=mhadhbi --branch=main --commit-dirty=true",
     "shots": "node scripts/shots.mjs"
   },
   "dependencies": {

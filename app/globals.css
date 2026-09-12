@@ -1,33 +1,37 @@
 @import 'tailwindcss';
 
 /* ===========================================================================
-   PORTFOLIO — design system
+   YOUSSEF MHADHBI — portfolio design system
    ---------------------------------------------------------------------------
-   Deliberately near-monochrome. This site's job is to make the CLIENT work
-   look good, and a loud frame competes with the screenshots inside it. One
-   high-chroma accent carries every action; everything else is paper and ink.
+   Dark, because the work has to be the brightest thing on the page and a dark
+   ground makes screenshots read as lit objects. The violet-to-cyan gradient is
+   the single expressive device — used on the mark, section numbers and the
+   generative hero, and nowhere else, so it stays meaningful.
 
-   It must also read as a different hand from the sites it displays — Chez
-   Robio is warm cream and orange, so this is cool paper and electric blue.
+   Deliberately a different hand from every site in the portfolio: those are
+   built for their own brands, this one is built for mine.
    =========================================================================== */
 
 @theme {
-  --color-paper: #f7f6f3;
-  --color-paper-2: #efede8;
-  --color-paper-3: #e2dfd8;
-  --color-paper-4: #cfcbc1;
+  --color-void: #08080b;
+  --color-surface: #0f0f14;
+  --color-surface-2: #17171f;
+  --color-surface-3: #20202b;
+  --color-line: #262633;
+  --color-line-2: #343445;
 
-  --color-ink: #121215;
-  --color-ink-2: #4a4a52;
-  /* #74747e measured 4.22:1 on paper and failed AA; this clears 4.8:1. */
-  --color-ink-3: #6b6b74;
+  --color-text: #f2f2f5;
+  --color-text-2: #a8a8b8;
+  /* #6e6e80 measured 4.05:1 on the void and failed AA; this clears 5:1. */
+  --color-text-3: #7e7e92;
 
-  --color-accent: #2c5cff;
-  --color-accent-deep: #1e40d6;
-  --color-accent-soft: #2c5cff14;
+  --color-violet: #7c5cff;
+  --color-cyan: #22d3ee;
+  --color-cyan-deep: #0ea5b7;
 
-  --font-display: var(--font-grotesk), 'Segoe UI', sans-serif;
+  --font-display: var(--font-bricolage), 'Segoe UI', sans-serif;
   --font-body: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-mono-jb), ui-monospace, monospace;
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -48,143 +52,187 @@
   }
 
   body {
-    background-color: var(--color-paper);
-    color: var(--color-ink);
+    background-color: var(--color-void);
+    color: var(--color-text);
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
 
-  ::selection { background: var(--color-accent); color: #fff; }
+  ::selection { background: var(--color-cyan); color: var(--color-void); }
 
   :focus-visible {
-    outline: 2px solid var(--color-accent);
+    outline: 2px solid var(--color-cyan);
     outline-offset: 3px;
     border-radius: 3px;
   }
+
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: var(--color-void); }
+  ::-webkit-scrollbar-thumb { background: var(--color-surface-3); border-radius: 99px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-violet); }
 }
 
-@utility container-p {
+@utility container-y {
   width: 100%;
-  max-width: 78rem;
+  max-width: 80rem;
   margin-inline: auto;
   padding-inline: 1.25rem;
   @media (min-width: 768px) { padding-inline: 2.5rem; }
-  @media (min-width: 1280px) { padding-inline: 3.5rem; }
+  @media (min-width: 1280px) { padding-inline: 4rem; }
 }
 
 @utility display-xl {
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 6.5vw, 5.25rem);
-  line-height: 0.98;
-  letter-spacing: -0.035em;
-  font-weight: 700;
+  font-size: clamp(2.75rem, 7.5vw, 6rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  font-weight: 800;
 }
 
 @utility display-lg {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4.6vw, 3.5rem);
-  line-height: 1.02;
-  letter-spacing: -0.03em;
-  font-weight: 700;
+  font-size: clamp(2rem, 4.8vw, 3.75rem);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  font-weight: 800;
 }
 
 @utility display-md {
   font-family: var(--font-display);
   font-size: clamp(1.375rem, 2.4vw, 1.875rem);
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  font-weight: 700;
 }
 
-@utility eyebrow {
+/* Mono for labels and section numbers — the one visual cue that says the
+   person behind this writes code, without resorting to a hero terminal. */
+@utility label {
+  font-family: var(--font-mono);
   font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--color-ink-3);
+  color: var(--color-text-3);
+}
+
+@utility gradient-text {
+  background: linear-gradient(115deg, var(--color-violet), var(--color-cyan));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
 @layer components {
-  .btn-accent {
+  .btn-primary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    padding: 0.95rem 1.75rem;
-    background: var(--color-accent);
-    color: #fff;
+    gap: 0.55rem;
+    padding: 0.95rem 1.85rem;
+    background: var(--color-cyan);
+    color: var(--color-void);
+    font-weight: 650;
+    font-size: 0.9375rem;
+    border-radius: 999px;
+    min-height: 46px;
+    transition: transform 0.22s var(--ease-out), box-shadow 0.22s var(--ease-out),
+      background-color 0.22s var(--ease-out);
+  }
+  .btn-primary:hover {
+    background: #4ee2f7;
+    transform: translateY(-2px);
+    box-shadow: 0 14px 40px -14px var(--color-cyan);
+  }
+  .btn-primary:active { transform: translateY(0); }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    padding: 0.95rem 1.85rem;
+    border: 1px solid var(--color-line-2);
+    color: var(--color-text);
     font-weight: 600;
     font-size: 0.9375rem;
     border-radius: 999px;
     min-height: 46px;
-    transition: background-color 0.22s var(--ease-out), transform 0.22s var(--ease-out),
-      box-shadow 0.22s var(--ease-out);
+    transition: border-color 0.22s var(--ease-out), background-color 0.22s var(--ease-out),
+      transform 0.22s var(--ease-out);
   }
-  .btn-accent:hover {
-    background: var(--color-accent-deep);
-    transform: translateY(-2px);
-    box-shadow: 0 14px 34px -12px var(--color-accent);
-  }
-  .btn-accent:active { transform: translateY(0); }
-
-  .btn-ghost {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.95rem 1.75rem;
-    border: 1.5px solid var(--color-paper-4);
-    color: var(--color-ink);
-    font-weight: 600;
-    font-size: 0.9375rem;
-    border-radius: 999px;
-    min-height: 46px;
-    transition: border-color 0.22s var(--ease-out), transform 0.22s var(--ease-out);
-  }
-  .btn-ghost:hover {
-    border-color: var(--color-ink);
+  .btn-outline:hover {
+    border-color: var(--color-cyan);
+    background: rgba(34, 211, 238, 0.06);
     transform: translateY(-2px);
   }
 
-  /* Browser chrome around screenshots. Without a frame a screenshot reads as
-     a flat picture; with one it reads as a working website. */
-  .browser-frame {
-    border-radius: 0.875rem;
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: 1.25rem;
+    transition: border-color 0.35s var(--ease-out), transform 0.35s var(--ease-out);
+  }
+  .card:hover { border-color: var(--color-line-2); }
+
+  /* A hairline that fades out — used to close sections without a hard rule. */
+  .rule {
+    height: 1px;
+    background: linear-gradient(90deg, var(--color-line), transparent);
+  }
+
+  /* Browser chrome around screenshots: a bare screenshot reads as a picture of
+     a design, the same image framed reads as a site that exists. */
+  .frame {
+    border-radius: 0.9rem;
     overflow: hidden;
-    background: var(--color-paper-2);
-    border: 1px solid var(--color-paper-3);
-    box-shadow: 0 30px 70px -35px rgba(18, 18, 21, 0.45);
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-line);
+    box-shadow: 0 40px 90px -50px rgba(0, 0, 0, 0.9);
   }
 
-  .browser-bar {
+  .frame-bar {
     display: flex;
     align-items: center;
     gap: 0.4rem;
     padding: 0.6rem 0.85rem;
-    background: var(--color-paper-2);
-    border-bottom: 1px solid var(--color-paper-3);
+    background: var(--color-surface-2);
+    border-bottom: 1px solid var(--color-line);
   }
 
-  .browser-dot {
-    width: 0.55rem;
-    height: 0.55rem;
+  .frame-dot {
+    width: 0.5rem;
+    height: 0.5rem;
     border-radius: 999px;
-    background: var(--color-paper-4);
+    background: var(--color-surface-3);
   }
 }
 
-@keyframes p-rise {
-  from { opacity: 0; transform: translate3d(0, 16px, 0); }
+@keyframes y-rise {
+  from { opacity: 0; transform: translate3d(0, 18px, 0); }
   to   { opacity: 1; transform: none; }
+}
+
+@keyframes y-marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes y-pulse {
+  0%, 100% { opacity: 0.45; transform: scale(1); }
+  50%      { opacity: 1; transform: scale(1.5); }
 }
 
 @layer components {
   .rise {
-    animation: p-rise 0.7s var(--ease-out) both;
+    animation: y-rise 0.75s var(--ease-out) both;
     animation-delay: var(--delay, 0s);
   }
+  .animate-marquee { animation: y-marquee 38s linear infinite; }
+  .animate-ping-dot { animation: y-pulse 2.2s ease-in-out infinite; }
+
   @media (prefers-reduced-motion: reduce) {
-    .rise { animation: none; }
+    .rise, .animate-marquee, .animate-ping-dot { animation: none; }
   }
 }

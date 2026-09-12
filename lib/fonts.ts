@@ -1,11 +1,11 @@
-import { Space_Grotesk, Inter } from 'next/font/google'
+import { Bricolage_Grotesque, Inter, JetBrains_Mono } from 'next/font/google'
 
-/** Self-hosted at build time by next/font — no request leaves the browser
- *  for Google, and the metrics are inlined so there is no layout shift. */
-export const grotesk = Space_Grotesk({
+/** Self-hosted at build time — no request leaves the browser for Google, and
+ *  the metrics are inlined so nothing shifts as they load. */
+export const bricolage = Bricolage_Grotesque({
   subsets: ['latin'],
-  weight: ['500', '600', '700'],
-  variable: '--font-grotesk',
+  weight: ['600', '700', '800'],
+  variable: '--font-bricolage',
   display: 'swap',
 })
 
@@ -15,4 +15,11 @@ export const inter = Inter({
   display: 'swap',
 })
 
-export const fontVars = `${grotesk.variable} ${inter.variable}`
+export const monoJb = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-mono-jb',
+  display: 'swap',
+})
+
+export const fontVars = `${bricolage.variable} ${inter.variable} ${monoJb.variable}`

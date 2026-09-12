@@ -1,9 +1,3 @@
-/**
- * A screenshot dressed as a browser window.
- *
- * A bare screenshot reads as a picture of a design; the same image inside
- * chrome reads as a website that exists. Worth the few lines.
- */
 export function Frame({
   src,
   alt,
@@ -18,13 +12,13 @@ export function Frame({
   className?: string
 }) {
   return (
-    <figure className={`browser-frame ${className}`}>
-      <div className="browser-bar">
-        <span className="browser-dot" />
-        <span className="browser-dot" />
-        <span className="browser-dot" />
+    <figure className={`frame ${className}`}>
+      <div className="frame-bar">
+        <span className="frame-dot" />
+        <span className="frame-dot" />
+        <span className="frame-dot" />
         {label && (
-          <span className="ms-2 truncate rounded bg-paper px-2 py-0.5 text-[10px] text-ink-3">
+          <span className="ml-2 truncate rounded bg-void/60 px-2 py-0.5 font-mono text-[10px] text-text-3">
             {label}
           </span>
         )}

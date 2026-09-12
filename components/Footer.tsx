@@ -1,4 +1,5 @@
-import { site, mailHref } from '@/lib/site'
+import { site, displayName, mailHref } from '@/lib/site'
+import { LogoMark } from './Logo'
 
 const socials = [
   { key: 'github', href: site.github, label: 'GitHub' },
@@ -7,14 +8,12 @@ const socials = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-paper-3 py-12">
-      <div className="container-p flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex items-center gap-2.5">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-ink font-display text-[12px] font-bold text-paper">
-            {site.initials}
-          </span>
-          <span className="text-[13px] text-ink-3">
-            © {new Date().getFullYear()} {site.name} · {site.city}
+    <footer className="border-t border-line py-12">
+      <div className="container-y flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-center gap-3">
+          <LogoMark id="footer" className="h-7 w-7" />
+          <span className="font-mono text-[11px] text-text-3">
+            © {new Date().getFullYear()} {displayName} · {site.city}
           </span>
         </div>
 
@@ -25,14 +24,14 @@ export function Footer() {
               href={s.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[13px] font-medium text-ink-2 transition-colors hover:text-accent"
+              className="font-mono text-[11px] text-text-2 transition-colors hover:text-cyan"
             >
               {s.label}
             </a>
           ))}
           <a
             href={mailHref()}
-            className="text-[13px] font-medium text-ink-2 transition-colors hover:text-accent"
+            className="font-mono text-[11px] text-text-2 transition-colors hover:text-cyan"
           >
             {site.email}
           </a>
