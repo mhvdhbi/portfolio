@@ -9,7 +9,7 @@ const links = [
   { href: '#travaux', label: 'Travaux' },
   { href: '#savoir-faire', label: 'Savoir-faire' },
   { href: '#methode', label: 'Méthode' },
-  { href: '#profil', label: 'Profil' },
+  { href: '#contact', label: 'Contact' },
 ]
 
 export function Nav() {

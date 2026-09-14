@@ -10,7 +10,13 @@
  * owner who phones the business you claimed as a client will find out anyway.
  */
 
-export type Metric = { value: string; label: string; note?: string }
+export type Metric = {
+  value: string
+  label: string
+  /** Short form for the compact home card, where the full label truncates. */
+  short?: string
+  note?: string
+}
 
 export type Project = {
   slug: string
@@ -62,7 +68,7 @@ export const projects: Project[] = [
       'Démonstration de commande — livraison ou sur place, espèces ou carte — sans aucune donnée enregistrée',
     ],
     metrics: [
-      { value: '110×', label: 'de contenu lisible par Google', note: '2 111 octets → 233 518 octets de HTML' },
+      { value: '110×', label: 'de contenu lisible par Google', short: 'lisible par Google', note: '2 111 octets → 233 518 octets de HTML' },
       { value: '100', label: 'Accessibilité, SEO, bonnes pratiques', note: 'Lighthouse, trois catégories sur quatre' },
       { value: '2', label: 'langues indexées', note: 'français et arabe' },
       { value: '110+', label: 'plats sur la carte', note: 'prix relevés sur leur carte' },

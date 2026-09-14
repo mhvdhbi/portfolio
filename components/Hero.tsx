@@ -54,9 +54,8 @@ export function Hero() {
           className="rise mt-8 max-w-[56ch] text-lg leading-relaxed text-text-2"
           style={d(0.24)}
         >
-          Je conçois et je code des sites sur mesure — design original, bilingue
-          français/arabe, rapides, et construits pour être trouvés sur Google.
-          Basé à {site.city}.
+          Sites sur mesure, bilingues français/arabe, rapides et trouvables sur
+          Google. Basé à {site.city}.
         </p>
 
         <div

@@ -1,6 +1,6 @@
 /**
- * Screenshot the portfolio itself for review.
- * Run: npm run shots   (a server must already be serving out/ on :4100)
+ * Screenshot the site for review.
+ * Requires a server on :4100 (npm run preview).
  */
 import { chromium } from 'playwright'
 import { mkdirSync } from 'node:fs'
@@ -19,16 +19,27 @@ for (const [label, w, h] of [['desktop', 1440, 900], ['mobile', 390, 844]]) {
   page.on('console', (m) => m.type() === 'error' && errors.push(`[${label}] ${m.text()}`))
 
   await page.goto(BASE, { waitUntil: 'networkidle', timeout: 60000 })
-  await page.waitForTimeout(6000)
+  await page.waitForTimeout(6000) // let the flow field reach steady state
   await page.screenshot({ path: `${OUT}/${label}-hero.png` })
   console.log('  OK', `${label}-hero`)
 
-  for (const [sel, name] of [['#travaux', 'work'], ['#prestations', 'services'], ['#methode', 'process'], ['#contact', 'contact']]) {
+  for (const [sel, name] of [
+    ['#travaux', 'travaux'],
+    ['#savoir-faire', 'savoir-faire'],
+    ['#methode', 'methode'],
+    ['#contact', 'contact'],
+  ]) {
     await page.evaluate((s) => document.querySelector(s)?.scrollIntoView({ block: 'start' }), sel)
-    await page.waitForTimeout(1400)
+    await page.waitForTimeout(1300)
     await page.screenshot({ path: `${OUT}/${label}-${name}.png` })
     console.log('  OK', `${label}-${name}`)
   }
+
+  await page.goto(`${BASE}/travaux/chez-robio/`, { waitUntil: 'networkidle' })
+  await page.waitForTimeout(1600)
+  await page.screenshot({ path: `${OUT}/${label}-projet.png` })
+  console.log('  OK', `${label}-projet`)
+
   await ctx.close()
 }
 
